@@ -1,11 +1,9 @@
-// This line allows us to bring in the data object from our data.js file
+
 const data = window.data;
 
-// Make your References to the two DOM nodes
 
-// Create a reference to the element who's ID is 'big_coffee and call it bigCoffee
-
-// Create a reference to the element who's ID is 'producer_container' and call it producerContainer
+const bigCoffee = document.getElementById ('big_coffee');
+const producerContainer = document.getElementById('producer_container');
 
 /**************
  *   SLICE 1
@@ -13,13 +11,22 @@ const data = window.data;
 
 function updateCoffeeView(coffeeQty) {
   // Create a reference to the element who's ID is 'coffee_counter'
+  let coffeeCounter = document.getElementById("coffee_counter")
+  coffeeCounter.innerText = coffeeQty; 
+  return coffeeQty;
   // Set the innerText of that element to be the coffeeQty passed into this function
+  
 }
 
 function clickCoffee(data) {
+    data.coffee += 1; 
   // Increment the data object's (passed into this function) coffee property by one
   // call the updateCoffeeView function and pass it the newly updated data.coffee property
   // call the renderProducers function and pass it the data object
+}
+updateCoffeeView(data.coffee);
+function renderProducers(data){
+  return data; 
 }
 
 /**************
@@ -27,16 +34,25 @@ function clickCoffee(data) {
  **************/
 
 function unlockProducers(producers, coffeeCount) {
-  // loop through the producers array passed into the function
+      for (i = 0; i < producers.length; i++) {
+        if (coffeeCount >= producers.price * 0.5) {
+          producers.unlocked = true; 
+        }
+      }
+      }
+ // loop through the producers array passed into the function
   // for each producer, if the coffeeCount (passed in) is greater than or equal
   // to half the producer's price, reassign the producers.unlocked property to equal true
-}
-
 function getUnlockedProducers(data) {
+      for (let i = 0; i < data.producers.length; i++) {
+        if (producers.unlocked === true) {
+          return producers; 
+        }
+    }
+  }
   // use the Array.prototype.filter() method
   // filter through the data.producers property, and return an array with only the producers whose
   // unlocked property is true
-}
 
 // You do not need to edit this function
 function makeDisplayNameFromId(id) {
@@ -45,7 +61,6 @@ function makeDisplayNameFromId(id) {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 }
-
 // You do not need to edit this function
 function makeProducerDiv(producer) {
   const containerDiv = document.createElement("div");
@@ -73,20 +88,18 @@ function deleteAllChildNodes(parent) {
     parent.removeChild(parent.firstChild);
   }
 }
-
-function renderProducers(data) {
-  // call the unlockProducers function and pass it data.producers and data.coffee
-
+ // call the unlockProducers function and pass it data.producers and data.coffee
+  unlockProducers (data.coffee, data.producers);
+   
   // make a reference to the DOM element whose ID is producer_container
-
+  let container = document.getElementById("producer_container");
   // call the deleteAllChildNodes function and pass it the above producerContainer element
-
+  deleteAllChildNodes(container);
   // you do not need to edit the following code, but for understanding, this gets the unlocked producers,
   // and for each producer makes a little html div with that producer's info
   getUnlockedProducers(data).forEach((producer) => {
     producerContainer.appendChild(makeProducerDiv(producer));
   });
-}
 
 /**************
  *   SLICE 3
@@ -126,7 +139,6 @@ function attemptToBuyProducer(data, producerId) {
     return false;
   }
 }
-
 // You do not need to edit this function
 function buyButtonClick(event, data) {
   if (event.target.tagName === "BUTTON") {
@@ -143,19 +155,36 @@ function buyButtonClick(event, data) {
 }
 
 function tick(data) {
+  for (let i = 0; i < data.coffee; i++) {
+    data.coffeeQty += data.totalCPS; 
+  }
   // increment the data object's (passed into this function)
   // coffee property by the data.totalCPS amount
 
   // call the updateCoffeeView function and pass it the data.coffee property
-
+    updateCoffeeView(data.coffee)
+ }
   // call the renderProducers function and pass it the newly updated data object
   renderProducers(data);
-}
+  
 
 // Event Listeners
+bigCoffee.addEventListener("click", clickCoffee) 
+  
+function clickCoffee(data) {
+ console.log ("clicked!")
+ return data;
+}
 
 // add a 'click' event listener to the bigCoffee element (that you referenced above)
 // the event listener should call the clickCoffee function, and pass in the global data object
+producerContainer.addEventListener("click", buyButtonClick) 
+function buyButtonClick(event) {
+  for (i = 0; i < event.Array; i++) {
+    cps += 1; 
+  }
+  return cps; 
+}
 
 // add a 'click' event listener to the element (referenced at the top of the file)
 // the event listener should call the buyButtonClick function and pass it the event, and the global data object
